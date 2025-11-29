@@ -1,0 +1,55 @@
+###########################
+# Build artifacts
+###########################
+bin/
+obj/
+out/
+Debug/
+Release/
+x64/
+x86/
+build/
+artifacts/
+
+###########################
+# .NET
+###########################
+*.nuget.props
+*.nuget.targets
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+
+###########################
+# IDEs / Editors
+###########################
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userprefs
+
+# Rider / IntelliJ
+.idea/
+*.sln.DotSettings.user
+
+# VS Code
+.vscode/
+
+###########################
+# Logs / Cache / Temp
+###########################
+*.log
+*.tmp
+*.temp
+.cache/
+*.swp
+*.swo
+
+###########################
+# OS-specific
+###########################
+.DS_Store
+Thumbs.db
