@@ -49,7 +49,7 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
 
     public bool IsInBounds(OffsetCoord offsetCoord)
     {
-        return offsetCoord.Col < MinX || offsetCoord.Col > MaxX || offsetCoord.Row < MinY || offsetCoord.Row > MaxY;
+        return offsetCoord.Col >= MinX && offsetCoord.Col <= MaxX && offsetCoord.Row >= MinY && offsetCoord.Row <= MaxY;
     }
 
     public bool IsInBounds(HexCoord coord)
@@ -87,12 +87,9 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
 
     public IEnumerable<Hex<T>> Hexes()
     {
-        for (var i = MinY; i <= MaxY; i++)
+        foreach (var coord in Coords())
         {
-            for (var j = MinX; j <= MaxX; j++)
-            {
-                yield return _grid[i, j];
-            }
+            yield return this[coord];
         }
     }
 
