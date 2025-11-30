@@ -7,6 +7,7 @@ namespace HexEngine;
 public class RectangularFlatHexGrid<T> : IHexGrid<T>
 {
     private Hex<T>[,] _grid;
+    private HexLayout _layout = HexLayout.FlatLayout;
 
     public int Width { get;}
     public int Height { get;}
@@ -93,11 +94,14 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
         }
     }
 
-    public Vector2 WorldCoordinate(HexCoord coord)
+    public Vector2 ToWorld(HexCoord coord)
     {
-        var x = coord.Q * 3f / 2;
-        var y = (coord.Q / 2f + coord.R) * (float)Math.Sqrt(2);
-        return new Vector2(Size * x, Size * y);
+        return _layout.ToLocal(coord, Size);
+    }
+
+    public HexCoord FromWorld(Vector2 coord)
+    {
+        return _layout.FromLocal(coord, Size);
     }
 }
 

@@ -53,3 +53,8 @@ project.fragment.lock.json
 ###########################
 .DS_Store
 Thumbs.db
+
+###########################
+# Godot uid's
+###########################
+*.uid

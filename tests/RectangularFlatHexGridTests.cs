@@ -155,7 +155,7 @@ public class RectangularFlatHexGridTests
         var grid = new RectangularFlatHexGrid<int>(5, 5, 2.0f);
         var coord = new HexCoord(0, 0);
 
-        var worldCoord = grid.WorldCoordinate(coord);
+        var worldCoord = grid.ToWorld(coord);
 
         Assert.Equal(0f, worldCoord.X);
         Assert.Equal(0f, worldCoord.Y);
@@ -167,7 +167,7 @@ public class RectangularFlatHexGridTests
         var grid = new RectangularFlatHexGrid<int>(5, 5, 2.0f);
         var coord = new HexCoord(2, 0);
 
-        var worldCoord = grid.WorldCoordinate(coord);
+        var worldCoord = grid.ToWorld(coord);
 
         Assert.Equal(6f, worldCoord.X);
     }
