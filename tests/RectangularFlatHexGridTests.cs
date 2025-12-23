@@ -40,7 +40,7 @@ public class RectangularFlatHexGridTests
     public void SetPayload_AndGetPayload_WorkCorrectly()
     {
         var grid = new RectangularFlatHexGrid<string>(5, 5, 1.0f);
-        var coord = new HexCoord(0, 0);
+        var coord = new HexCoordI(0, 0);
 
         grid.SetPayload(coord, "test");
 
@@ -51,11 +51,11 @@ public class RectangularFlatHexGridTests
     public void GetHex_ReturnsHexWithCorrectCoord()
     {
         var grid = new RectangularFlatHexGrid<int>(5, 5, 1.0f);
-        var coord = new HexCoord(1, -1);
+        var coord = new HexCoordI(1, -1);
 
         var hex = grid.GetHex(coord);
 
-        Assert.Equal(coord, hex.Coord);
+        Assert.Equal(coord, hex.CoordI);
     }
 
     [Theory]
@@ -72,7 +72,7 @@ public class RectangularFlatHexGridTests
             for (int y = -h / 2; y > -h / 2 + h; y++)
             {
                 var offsetCoord = new OffsetCoord(y, x);
-                var coord = HexCoord.FromOffsetOddRow(offsetCoord);
+                var coord = HexCoordI.FromOffsetOddRow(offsetCoord);
                 Assert.True(grid.IsInBounds(offsetCoord));
                 Assert.True(grid.IsInBounds(coord));
             }
@@ -92,7 +92,7 @@ public class RectangularFlatHexGridTests
     {
         var grid = new RectangularFlatHexGrid<int>(11, 10, 1);
         var offsetCoord = new OffsetCoord(y, x);
-        var coord = HexCoord.FromOffsetOddRow(offsetCoord);
+        var coord = HexCoordI.FromOffsetOddRow(offsetCoord);
         Assert.False(grid.IsInBounds(offsetCoord));
         Assert.False(grid.IsInBounds(coord));
     }
@@ -134,7 +134,7 @@ public class RectangularFlatHexGridTests
     public void Indexer_ThrowsForOutOfBoundsCoord()
     {
         var grid = new RectangularFlatHexGrid<int>(3, 3, 1.0f);
-        var coord = new HexCoord(100, 100);
+        var coord = new HexCoordI(100, 100);
 
         Assert.Throws<ArgumentOutOfRangeException>(() => grid.GetHex(coord));
     }
@@ -153,7 +153,7 @@ public class RectangularFlatHexGridTests
     public void WorldCoordinate_CalculatesCorrectPosition()
     {
         var grid = new RectangularFlatHexGrid<int>(5, 5, 2.0f);
-        var coord = new HexCoord(0, 0);
+        var coord = new HexCoordI(0, 0);
 
         var worldCoord = grid.ToWorld(coord);
 
@@ -165,7 +165,7 @@ public class RectangularFlatHexGridTests
     public void WorldCoordinate_ScalesBySize()
     {
         var grid = new RectangularFlatHexGrid<int>(5, 5, 2.0f);
-        var coord = new HexCoord(2, 0);
+        var coord = new HexCoordI(2, 0);
 
         var worldCoord = grid.ToWorld(coord);
 
@@ -181,7 +181,7 @@ public class RectangularFlatHexGridTests
     public void SetAndGetPayload_WorksForMultipleCoords(int q, int r)
     {
         var grid = new RectangularFlatHexGrid<int>(5, 5, 1.0f);
-        var coord = new HexCoord(q, r);
+        var coord = new HexCoordI(q, r);
         var value = q * 10 + r;
 
         grid.SetPayload(coord, value);
@@ -193,8 +193,8 @@ public class RectangularFlatHexGridTests
     public void MultiplePayloads_MaintainIndependence()
     {
         var grid = new RectangularFlatHexGrid<string>(5, 5, 1.0f);
-        var coord1 = new HexCoord(0, 0);
-        var coord2 = new HexCoord(1, 0);
+        var coord1 = new HexCoordI(0, 0);
+        var coord2 = new HexCoordI(1, 0);
 
         grid.SetPayload(coord1, "first");
         grid.SetPayload(coord2, "second");

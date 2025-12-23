@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace HexEngine;
 
-public struct HexLayout
+public readonly struct HexLayout
 {
     private readonly float _m11, _m12;
     private readonly float _m21, _m22;
@@ -30,15 +30,15 @@ public struct HexLayout
     public static HexLayout PointyLayout { get; } = new 
         HexLayout((float) Math.Sqrt(3), (float) Math.Sqrt(3)/2f, 0, 3f/2f);
 
-    public Vector2 ToLocal(HexCoord coord, float size)
+    public Vector2 ToLocal(HexCoordI coordI, float size)
     {
-        return size * (new Vector2(_m11 * coord.Q + _m12 * coord.R, _m21 * coord.Q + _m22*coord.R));
+        return size * (new Vector2(_m11 * coordI.Q + _m12 * coordI.R, _m21 * coordI.Q + _m22*coordI.R));
     }
 
-    public HexCoord FromLocal(Vector2 coord, float size)
+    public HexCoordF FromLocal(Vector2 coord, float size)
     {
         var q = _inv11 * coord.X + _inv12 * coord.Y;
         var r = _inv21 * coord.X + _inv22 * coord.Y;
-        return new HexCoord(q / size, r / size);
+        return new HexCoordF(q / size, r / size);
     }
 }

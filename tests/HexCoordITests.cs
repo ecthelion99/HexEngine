@@ -2,9 +2,9 @@
 
 using HexEngine;
 
-public class HexCoordTests
+public class HexCoordITests
 {
-    private static void AssertCubeInvariant(HexCoord h)
+    private static void AssertCubeInvariant(HexCoordI h)
     {
         Assert.Equal(0, h.Q + h.R + h.S);
     }
@@ -12,16 +12,16 @@ public class HexCoordTests
     [Property]
     public void CubeInvariant_AlwaysHolds(int q, int r)
     {
-        HexCoord coord = new HexCoord(q, r);
-        AssertCubeInvariant(coord);
+        HexCoordI coordI = new HexCoordI(q, r);
+        AssertCubeInvariant(coordI);
     }
 
     [Property]
     public void OffsetOddRow_RoundTrip(int q, int r)
     {
-        HexCoord hexCoord1 = new HexCoord(q, r);
+        HexCoordI hexCoord1 = new HexCoordI(q, r);
         OffsetCoord offsetCoord = hexCoord1.ToOffsetOddRow();
-        HexCoord hexCoord2 = HexCoord.FromOffsetOddRow(offsetCoord);
+        HexCoordI hexCoord2 = HexCoordI.FromOffsetOddRow(offsetCoord);
         Assert.Equal(hexCoord1, hexCoord2);
     }
 }

@@ -5,11 +5,11 @@ namespace HexEngine;
 public interface IHexGrid<T>
 {
 
-    public void SetPayload(HexCoord coord, T payload);
+    public void SetPayload(HexCoordI coordI, T payload);
 
-    public Hex<T> GetHex(HexCoord coord);
+    public Hex<T> GetHex(HexCoordI coordI);
 
-    public IEnumerable<HexCoord> Coords();
+    public IEnumerable<HexCoordI> Coords();
     
     public IEnumerable<Hex<T>> Hexes();
 

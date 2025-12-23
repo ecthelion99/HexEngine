@@ -28,20 +28,20 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
         foreach (var coord in this.Coords())
         {
             ref var hex = ref this[coord];
-            hex.Coord = coord;
+            hex.CoordI = coord;
             hex.Size = Size;
 
         }
     }
-    private ref Hex<T> this[HexCoord coord]
+    private ref Hex<T> this[HexCoordI coordI]
     {
         get
         {
-            var offsetCoord = coord.ToOffsetOddRow();
+            var offsetCoord = coordI.ToOffsetOddRow();
             if (!IsInBounds(offsetCoord))
             {
-                throw new ArgumentOutOfRangeException(nameof(coord), 
-                    $"Hex coordinate Q: {coord.Q}, R: {coord.R} is out of range." +
+                throw new ArgumentOutOfRangeException(nameof(coordI), 
+                    $"Hex coordinate Q: {coordI.Q}, R: {coordI.R} is out of range." +
                     $"               Row: {offsetCoord.Row}, Col: {offsetCoord.Col}");
             }
             return ref _grid[offsetCoord.Row - MinY, offsetCoord.Col - MinX];
@@ -53,35 +53,35 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
         return offsetCoord.Col >= MinX && offsetCoord.Col <= MaxX && offsetCoord.Row >= MinY && offsetCoord.Row <= MaxY;
     }
 
-    public bool IsInBounds(HexCoord coord)
+    public bool IsInBounds(HexCoordI coordI)
     {
-        var offsetCoord = coord.ToOffsetOddRow();
+        var offsetCoord = coordI.ToOffsetOddRow();
         return IsInBounds(offsetCoord);
     }
 
-    public void SetPayload(HexCoord coord, T payload)
+    public void SetPayload(HexCoordI coordI, T payload)
     {
-        ref var hexRef = ref this[coord];
+        ref var hexRef = ref this[coordI];
         hexRef.Payload = payload;
     }
 
-    public T GetPayload(HexCoord coord)
+    public T GetPayload(HexCoordI coordI)
     {
-        return this[coord].Payload;
+        return this[coordI].Payload;
     }
     
-    public Hex<T> GetHex(HexCoord coord)
+    public Hex<T> GetHex(HexCoordI coordI)
     {
-        return this[coord];
+        return this[coordI];
     }
-    public IEnumerable<HexCoord> Coords()
+    public IEnumerable<HexCoordI> Coords()
     {
         for (var i = MinY; i <= MaxY; i++)
         {
             for (var j = MinX; j <= MaxX; j++)
             {
                 var offsetCoord = new OffsetCoord(i, j);
-                yield return HexCoord.FromOffsetOddRow(offsetCoord);
+                yield return HexCoordI.FromOffsetOddRow(offsetCoord);
             }
         }
     }
@@ -94,12 +94,12 @@ public class RectangularFlatHexGrid<T> : IHexGrid<T>
         }
     }
 
-    public Vector2 ToWorld(HexCoord coord)
+    public Vector2 ToWorld(HexCoordI coordI)
     {
-        return _layout.ToLocal(coord, Size);
+        return _layout.ToLocal(coordI, Size);
     }
 
-    public HexCoord FromWorld(Vector2 coord)
+    public HexCoordF FromWorld(Vector2 coord)
     {
         return _layout.FromLocal(coord, Size);
     }
